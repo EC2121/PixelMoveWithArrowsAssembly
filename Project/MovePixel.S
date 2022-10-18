@@ -5,6 +5,7 @@ LDX #$FF
 TXS
 LDX #0
 
+JSR Draw
 Input:
 LDA $4000
 CMP #1
