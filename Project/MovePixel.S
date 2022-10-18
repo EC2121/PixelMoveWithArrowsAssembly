@@ -1,9 +1,12 @@
-
 .org $8000
+
 start:
+LDX #$FF
+TXS
+LDX #0
 
+Input:
 LDA $4000
-
 CMP #1
 BEQ moveUp
 CMP #2
@@ -12,7 +15,7 @@ CMP #4
 BEQ moveLeft
 CMP #8
 BEQ moveRight
-JMP start
+JMP Input
 
 Clear:
 LDA #0
@@ -34,7 +37,7 @@ SBC #16
 STA $0300
 LDX $0300
 JSR Draw
-JMP start
+JMP Input
 
 ;MOVE RIGHT------------------
 moveRight:
@@ -43,7 +46,7 @@ LDX $0300
 INX
 STX $0300
 JSR Draw
-JMP start
+JMP Input
 
 
 
@@ -54,18 +57,19 @@ LDX $0300
 DEX
 STX $0300
 JSR Draw
-JMP start
+JMP Input
 
 
 ;MOVE DOWN-------------------
 moveDown:
 JSR Clear
 LDA $0300
-ADC #15
+CLC
+ADC #16
 STA $0300
 LDX $0300
 JSR Draw
-JMP start
+JMP Input
 
 .goto $FFFA
 .dw start
